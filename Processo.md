@@ -644,3 +644,111 @@ ou
 ```bash
 npm run dev
 ```
+
+# Importando arquivos CSS
+
+Alterar arquivo 'webpack.config.js':
+
+```js
+const path = require('path')
+const htmlWebpackPlugin = require('html-webpack-plugin')
+const isDevelopment = process.env.NODE_ENV !== 'production'
+
+module.exports = {
+  mode: isDevelopment ? 'development' : 'production',
+  devtool: isDevelopment ? 'eval-source-map' : 'source-map',
+  entry: path.resolve(__dirname, 'src', 'index.jsx'),
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
+  },
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
+  devServer: {
+    static: path.resolve(__dirname, 'public')
+  },
+  plugins: [
+    new htmlWebpackPlugin({
+      template: path.resolve(__dirname, 'public', 'index.html')
+    })
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.jsx$/,
+        exclude: /node_modules/,
+        use: 'babel-loader'
+      },
+      {
+        test: /\.css$/,
+        exclude: /node_modules/,
+        use: ['style-loader', 'css-loader']
+      }
+    ]
+  }
+}
+//# sourceMappingURL=/dist/app.js.map
+```
+
+Comando no terminal:
+
+```bash
+npm add style-loader css-loader -D
+```
+
+Agora é possivel importar arquivos css para o App.jsx, por exemplo.
+
+# Importando arquvios SASS
+
+Comando no terminal:
+
+```bash
+npm add node-sass sass-loader -D
+```
+
+Alterar arquivo 'webpack.config.js':
+
+```js
+const path = require('path')
+const htmlWebpackPlugin = require('html-webpack-plugin')
+const isDevelopment = process.env.NODE_ENV !== 'production'
+
+module.exports = {
+  mode: isDevelopment ? 'development' : 'production',
+  devtool: isDevelopment ? 'eval-source-map' : 'source-map',
+  entry: path.resolve(__dirname, 'src', 'index.jsx'),
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
+  },
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
+  devServer: {
+    static: path.resolve(__dirname, 'public')
+  },
+  plugins: [
+    new htmlWebpackPlugin({
+      template: path.resolve(__dirname, 'public', 'index.html')
+    })
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.jsx$/,
+        exclude: /node_modules/,
+        use: 'babel-loader'
+      },
+      {
+        test: /\.scss$/,
+        exclude: /node_modules/,
+        use: ['style-loader', 'css-loader', 'sass-loader']
+      }
+    ]
+  }
+}
+//# sourceMappingURL=/dist/app.js.map
+```
+
+Utilizar extensão '.scss' para os arquivos de estilização!

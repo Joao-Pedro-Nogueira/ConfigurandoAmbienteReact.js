@@ -1,5 +1,5 @@
-export function App() {
-  throw new Error('Deu ruim')
+import './styles/global.scss';
 
-  return <h1>Testando</h1>
+export function App() {
+  return <h1>Hello React.js</h1>
 }
