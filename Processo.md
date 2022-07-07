@@ -485,7 +485,7 @@ module.exports = {
     extensions: ['.js', '.jsx']
   },
   devServer: {
-    contentBase: path.resolve(__dirname, 'public')
+    static: path.resolve(__dirname, 'public')
   },
   plugins: [
     new htmlWebpackPlugin({
@@ -508,4 +508,46 @@ Comando no terminal:
 
 ```bash
 npx webpack serve
+```
+
+Verificação: o arquivo 'src/App.js' deve ter autorefresh no localhost (indicado no terminal).
+
+# Utilizando Source Maps
+
+Alterar arquivo 'webpack.config.js' para:
+
+```js
+const path = require('path')
+const htmlWebpackPlugin = require('html-webpack-plugin')
+
+module.exports = {
+  mode: 'development',
+  devtool: 'eval-source-map',
+  entry: path.resolve(__dirname, 'src', 'index.jsx'),
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
+  },
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
+  devServer: {
+    static: path.resolve(__dirname, 'public')
+  },
+  plugins: [
+    new htmlWebpackPlugin({
+      template: path.resolve(__dirname, 'public', 'index.html')
+    })
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.jsx$/,
+        exclude: /node_modules/,
+        use: 'babel-loader'
+      }
+    ]
+  }
+}
+//# sourceMappingURL=/dist/app.js.map
 ```

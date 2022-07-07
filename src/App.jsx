@@ -1,3 +1,5 @@
 export function App() {
-  return <h1>Hello World</h1>
+  throw new Error('Deu ruim')
+
+  return <h1>Testando</h1>
 }
