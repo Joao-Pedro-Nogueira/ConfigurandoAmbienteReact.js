@@ -551,3 +551,50 @@ module.exports = {
 }
 //# sourceMappingURL=/dist/app.js.map
 ```
+
+# Ambiente Dev e Production
+
+Alterar 'webpack.config' para:
+
+```js
+const path = require('path')
+const htmlWebpackPlugin = require('html-webpack-plugin')
+const isDevelopment = process.env.NODE_ENV !== 'production'
+
+module.exports = {
+  mode: isDevelopment ? 'development' : 'production',
+  devtool: isDevelopment ? 'eval-source-map' : 'source-map',
+  entry: path.resolve(__dirname, 'src', 'index.jsx'),
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
+  },
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
+  devServer: {
+    static: path.resolve(__dirname, 'public')
+  },
+  plugins: [
+    new htmlWebpackPlugin({
+      template: path.resolve(__dirname, 'public', 'index.html')
+    })
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.jsx$/,
+        exclude: /node_modules/,
+        use: 'babel-loader'
+      }
+    ]
+  }
+}
+//# sourceMappingURL=/dist/app.js.map
+```
+
+Comando no terminal:
+
+```bash
+npm add cross-env -D
+```
