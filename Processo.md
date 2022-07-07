@@ -457,3 +457,55 @@ npx webpack
 ```
 
 Se isso resultar na criação do arquivo 'dist/index.html' (novo arquivo para abrir no Live Server) com um html básico, tendo o 'dist/bundle.js' como script, deu tudo certo!
+
+# Utilizando Webpack-dev-server
+
+Comando no terminal:
+
+```bash
+npm add webpack-dev-server -D
+```
+
+Verificar se foi instalado no 'package.json'
+
+Alterar 'webpack.config.js':
+
+```js
+const path = require('path')
+const htmlWebpackPlugin = require('html-webpack-plugin')
+
+module.exports = {
+  mode: 'development',
+  entry: path.resolve(__dirname, 'src', 'index.jsx'),
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
+  },
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
+  devServer: {
+    contentBase: path.resolve(__dirname, 'public')
+  },
+  plugins: [
+    new htmlWebpackPlugin({
+      template: path.resolve(__dirname, 'public', 'index.html')
+    })
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.jsx$/,
+        exclude: /node_modules/,
+        use: 'babel-loader'
+      }
+    ]
+  }
+}
+```
+
+Comando no terminal:
+
+```bash
+npx webpack serve
+```
