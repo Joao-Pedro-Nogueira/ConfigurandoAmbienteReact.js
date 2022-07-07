@@ -106,6 +106,14 @@ console.log(
 
 Então, está tudo certo até agora!
 
+Alterar: arquivo .gitignore:
+
+```
+node_modules
+**/node_modules
+dist
+```
+
 ## Instalando babel/preset-react
 
 Comando no terminal:
@@ -311,4 +319,89 @@ Se o 'dist/bundle.js' foi alterado para:
     return t[r](n, n.exports, o), n.exports
   })(294)
 })()
+```
+
+# Estrutura do React.js
+
+Alterar arquivo 'public/index.html':
+
+```html
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Título</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="../dist/bundle.js"></script>
+  </body>
+</html>
+```
+
+Alterar arquivo 'src/index.jsx':
+
+```js
+// src/index.js
+import { render } from 'react-dom'
+import { App } from './App'
+
+render(<App />, document.getElementById('root'))
+```
+
+Alterar arquivo 'babel.config.js':
+
+```js
+module.exports = {
+  presets: [
+    '@babel/preset-env',
+    [
+      '@babel/preset-react',
+      {
+        runtime: 'automatic'
+      }
+    ]
+  ]
+}
+```
+
+Teste de funcionamento:
+Comando no termnal:
+
+```bash
+npx webpack
+```
+
+Arir 'public/index.html' com Live Server. Se tiver um título "Test", está funcionando!
+
+### Corrigindo 'WARNING' do 'npx webpack'
+
+Alterar: arquivo 'webpack.config.js':
+
+```js
+const path = require('path')
+
+module.exports = {
+  mode: 'development',
+  entry: path.resolve(__dirname, 'src', 'index.jsx'),
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
+  },
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
+  module: {
+    rules: [
+      {
+        test: /\.jsx$/,
+        exclude: /node_modules/,
+        use: 'babel-loader'
+      }
+    ]
+  }
+}
 ```
