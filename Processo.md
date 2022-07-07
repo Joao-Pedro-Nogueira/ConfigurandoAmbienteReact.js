@@ -598,3 +598,49 @@ Comando no terminal:
 ```bash
 npm add cross-env -D
 ```
+
+Adicionar scripts no 'package.json'
+
+```js
+{
+  "name": "configurando-ambiente-react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack serve",
+    "build": "cross-env NODE_ENV=production webpack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.18.6",
+    "@babel/core": "^7.18.6",
+    "@babel/preset-env": "^7.18.6",
+    "@babel/preset-react": "^7.18.6",
+    "babel-loader": "^8.2.5",
+    "cross-env": "^7.0.3",
+    "html-webpack-plugin": "^5.5.0",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.3"
+  }
+}
+```
+
+Executar os seguintes comandos para abrir ambiente development ou production:
+
+```bash
+npm run dev
+```
+
+ou
+
+```bash
+npm run dev
+```
