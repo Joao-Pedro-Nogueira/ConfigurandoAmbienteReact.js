@@ -405,3 +405,55 @@ module.exports = {
   }
 }
 ```
+
+# Servindo HTML estático
+
+Comando no terminal:
+
+```bash
+npm add html-webpack-plugin -D
+```
+
+Verificar se foi adicionado no 'package.json'
+
+Alterar: 'webpack.config.js'
+
+```js
+const path = require('path')
+const htmlWebpackPlugin = require('html-webpack-plugin')
+
+module.exports = {
+  mode: 'development',
+  entry: path.resolve(__dirname, 'src', 'index.jsx'),
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
+  },
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
+  plugins: [
+    new htmlWebpackPlugin({
+      template: path.resolve(__dirname, 'public', 'index.html')
+    })
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.jsx$/,
+        exclude: /node_modules/,
+        use: 'babel-loader'
+      }
+    ]
+  }
+}
+```
+
+Verificação:
+Comando no terminal:
+
+```bash
+npx webpack
+```
+
+Se isso resultar na criação do arquivo 'dist/index.html' (novo arquivo para abrir no Live Server) com um html básico, tendo o 'dist/bundle.js' como script, deu tudo certo!
