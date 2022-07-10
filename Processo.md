@@ -752,3 +752,65 @@ module.exports = {
 ```
 
 Utilizar extensão '.scss' para os arquivos de estilização!
+
+# Configurando Fast Refresh
+
+Comando no terminal:
+
+```bash
+npm install -D @pmmmwh/react-refresh-webpack-plugin react-refresh
+```
+
+Alterar arquivo 'webpack.config.js':
+
+```js
+const path = require('path')
+const htmlWebpackPlugin = require('html-webpack-plugin')
+const isDevelopment = process.env.NODE_ENV !== 'production'
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
+
+module.exports = {
+  mode: isDevelopment ? 'development' : 'production',
+  devtool: isDevelopment ? 'eval-source-map' : 'source-map',
+  entry: path.resolve(__dirname, 'src', 'index.jsx'),
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
+  },
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
+  devServer: {
+    static: path.resolve(__dirname, 'public'),
+    hot: true
+  },
+  plugins: [
+    isDevelopment && new ReactRefreshWebpackPlugin(),
+    new htmlWebpackPlugin({
+      template: path.resolve(__dirname, 'public', 'index.html')
+    })
+  ].filter(Boolean),
+  module: {
+    rules: [
+      {
+        test: /\.jsx$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            plugins: [
+              isDevelopment && require.resolve('react-refresh/babel')
+            ].filter(Boolean)
+          }
+        }
+      },
+      {
+        test: /\.scss$/,
+        exclude: /node_modules/,
+        use: ['style-loader', 'css-loader', 'sass-loader']
+      }
+    ]
+  }
+}
+//# sourceMappingURL=/dist/app.js.map
+```
