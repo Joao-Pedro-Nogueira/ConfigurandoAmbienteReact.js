@@ -29,6 +29,7 @@ module.exports = {
       {
         test: /\.jsx$/,
         exclude: /node_modules/,
+<<<<<<< HEAD
         use: {
           loader: 'babel-loader',
           options: {
@@ -37,6 +38,9 @@ module.exports = {
             ].filter(Boolean)
           }
         }
+=======
+        use: 'babel-loader'
+>>>>>>> 4a4a9c38b8fadfc591eea9fa1045edd3999276b8
       },
       {
         test: /\.scss$/,

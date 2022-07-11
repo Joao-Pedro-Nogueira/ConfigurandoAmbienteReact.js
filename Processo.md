@@ -752,6 +752,7 @@ module.exports = {
 ```
 
 Utilizar extensão '.scss' para os arquivos de estilização!
+<<<<<<< HEAD
 
 # Configurando Fast Refresh
 
@@ -814,3 +815,5 @@ module.exports = {
 }
 //# sourceMappingURL=/dist/app.js.map
 ```
+=======
+>>>>>>> 4a4a9c38b8fadfc591eea9fa1045edd3999276b8
